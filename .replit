@@ -30,3 +30,8 @@ externalPort = 8081
 [[ports]]
 localPort = 23489
 externalPort = 3000
+
+[userenv]
+
+[userenv.shared]
+RAWG_API_KEY = "2b678d60df6349329f443868ac21219e"

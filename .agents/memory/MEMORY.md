@@ -1,0 +1,2 @@
+- [GameSummary type rule](gamesummary-type.md) — always import GameSummary from @workspace/api-client-react, never redefine locally or use @workspace/api-zod paths
+- [React Query patterns](react-query-patterns.md) — queryKey is required in query options; getList*QueryKey() helpers exist for all list hooks

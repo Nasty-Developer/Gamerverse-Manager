@@ -1,0 +1,186 @@
+IMPORTANT:
+
+A RAWG API key has already been configured in Replit Secrets as:
+
+RAWG_API_KEY
+
+Never hardcode API keys into the source code.
+
+Always read the RAWG API key from environment variables.
+
+Do NOT use OpenAI, GPT APIs, Gemini APIs, Anthropic APIs, or any paid AI provider.
+
+Assume there is no budget for AI APIs.
+
+Build GamerVerse without paid AI services.
+
+Use:
+
+* RAWG API
+* Firebase
+* Firestore
+* Firebase Auth
+* Firebase Storage
+
+CORE PRODUCT VISION
+
+GamerVerse is not a simple gaming website.
+
+GamerVerse should become:
+
+"Google for Games"
+
+Users should be able to discover, compare, research, and evaluate games without visiting multiple websites.
+
+Architecture Requirements
+
+1. Integrate RAWG API as the primary game data source.
+
+2. Create a cache-first architecture.
+
+3. When a user searches for a game:
+
+* Check Firestore cache first
+* If the game exists, use cached data
+* If not, fetch from RAWG
+* Save the result to Firestore
+* Serve cached data for future requests
+
+4. Reduce unnecessary RAWG API calls.
+
+5. Design for long-term scalability.
+
+6. Design the system so GamerVerse can eventually become independent from third-party APIs.
+
+Recommendation System
+
+Do NOT use external AI APIs.
+
+Create a smart recommendation engine using:
+
+* Genres
+* Tags
+* Platforms
+* Ratings
+* Similar games
+* User favorites
+* Recently viewed games
+* Search history
+
+Generate explanations such as:
+
+"Recommended because you enjoy open-world action games."
+
+UI / UX REQUIREMENTS
+
+The current UI feels too empty and too basic.
+
+Upgrade the UI dramatically.
+
+The site should feel like a premium gaming startup.
+
+Design inspiration:
+
+* Steam
+* Xbox Game Pass
+* PlayStation Store
+* Framer
+* Linear
+* Apple Vision Pro
+
+Use:
+
+* Cinematic hero section
+* Premium dark theme
+* Neon blue lighting
+* Purple glow effects
+* Glassmorphism
+* Smooth Framer Motion animations
+* Better spacing
+* Better typography
+* Premium gradients
+* Layered depth
+* Rich interactions
+
+Homepage Requirements
+
+Create a complete homepage including:
+
+* Massive cinematic hero
+* AI-style search experience
+* Trending games
+* New releases
+* Top-rated games
+* Popular genres
+* Featured collections
+* Gaming news section
+* Community highlights
+* Premium footer
+
+No empty sections.
+
+No placeholders.
+
+No unfinished layouts.
+
+Game Discovery
+
+Users should be able to:
+
+* Search games
+* Filter by genre
+* Filter by platform
+* Filter by release year
+* Filter by rating
+* Filter by popularity
+
+Game Detail Page
+
+Display:
+
+* Cover image
+* Hero banner
+* Screenshots
+* Trailer
+* Description
+* Genres
+* Platforms
+* Ratings
+* Release date
+* Developers
+* Publishers
+* Similar games
+* Recommended games
+* System requirements
+
+Can I Run This Game
+
+Create a dedicated feature where users can enter:
+
+* CPU
+* GPU
+* RAM
+
+The system should provide:
+
+* Can Run
+* May Run
+* Not Recommended
+
+along with compatibility explanations.
+
+Before implementing major changes:
+
+Audit the current project and provide:
+
+1. What is already complete
+2. What is missing
+3. What should be improved
+4. Estimated completion percentage
+5. Highest-priority next steps
+
+Then continue building the most important missing features first.
+
+Focus on quality over quantity.
+
+Build a product that feels production-ready and impressive.

@@ -1,22 +1,42 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: GamerVerse API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: games
+    description: Game discovery and detail
+  - name: genres
+    description: Game genres
+  - name: platforms
+    description: Gaming platforms
+  - name: search
+    description: Search and discovery
+  - name: recommendations
+    description: Algorithmic recommendations
+  - name: favorites
+    description: User favorites
+  - name: reviews
+    description: Game reviews
+  - name: recently-viewed
+    description: Recently viewed games
+  - name: pc-check
+    description: PC compatibility check
+  - name: news
+    description: Gaming news
+  - name: featured
+    description: Featured collections
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +44,447 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /games:
+    get:
+      operationId: listGames
+      tags: [games]
+      summary: List/search games from RAWG
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: genres
+          in: query
+          schema:
+            type: string
+        - name: platforms
+          in: query
+          schema:
+            type: string
+        - name: ordering
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+        - name: dates
+          in: query
+          schema:
+            type: string
+        - name: metacritic
+          in: query
+          schema:
+            type: string
+        - name: tags
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of games
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameListResponse"
+
+  /games/trending:
+    get:
+      operationId: getTrendingGames
+      tags: [games]
+      summary: Get trending games
+      parameters:
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Trending games
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameListResponse"
+
+  /games/new-releases:
+    get:
+      operationId: getNewReleases
+      tags: [games]
+      summary: Get new releases
+      parameters:
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: New releases
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameListResponse"
+
+  /games/top-rated:
+    get:
+      operationId: getTopRatedGames
+      tags: [games]
+      summary: Get top-rated games
+      parameters:
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Top-rated games
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameListResponse"
+
+  /games/{slug}:
+    get:
+      operationId: getGame
+      tags: [games]
+      summary: Get game detail
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Game detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /games/{slug}/similar:
+    get:
+      operationId: getSimilarGames
+      tags: [games]
+      summary: Get similar/recommended games
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Similar games
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameListResponse"
+
+  /games/{slug}/screenshots:
+    get:
+      operationId: getGameScreenshots
+      tags: [games]
+      summary: Get game screenshots
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Screenshots
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScreenshotListResponse"
+
+  /genres:
+    get:
+      operationId: listGenres
+      tags: [genres]
+      summary: List game genres
+      responses:
+        "200":
+          description: List of genres
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenreListResponse"
+
+  /platforms:
+    get:
+      operationId: listPlatforms
+      tags: [platforms]
+      summary: List gaming platforms
+      responses:
+        "200":
+          description: List of platforms
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlatformListResponse"
+
+  /search:
+    get:
+      operationId: searchGames
+      tags: [search]
+      summary: Natural language game search
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
+
+  /recommendations:
+    get:
+      operationId: getRecommendations
+      tags: [recommendations]
+      summary: Get algorithmic game recommendations
+      parameters:
+        - name: genres
+          in: query
+          schema:
+            type: string
+        - name: tags
+          in: query
+          schema:
+            type: string
+        - name: based_on
+          in: query
+          schema:
+            type: string
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Recommendations with explanations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecommendationListResponse"
+
+  /favorites:
+    get:
+      operationId: listFavorites
+      tags: [favorites]
+      summary: List user favorites
+      responses:
+        "200":
+          description: User favorites
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Favorite"
+    post:
+      operationId: addFavorite
+      tags: [favorites]
+      summary: Add a game to favorites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FavoriteInput"
+      responses:
+        "201":
+          description: Added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Favorite"
+
+  /favorites/{gameSlug}:
+    delete:
+      operationId: removeFavorite
+      tags: [favorites]
+      summary: Remove a game from favorites
+      parameters:
+        - name: gameSlug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Removed
+
+  /reviews:
+    get:
+      operationId: listReviews
+      tags: [reviews]
+      summary: List reviews for a game
+      parameters:
+        - name: gameSlug
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Reviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+    post:
+      operationId: createReview
+      tags: [reviews]
+      summary: Create a review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewInput"
+      responses:
+        "201":
+          description: Created review
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+
+  /reviews/{id}:
+    delete:
+      operationId: deleteReview
+      tags: [reviews]
+      summary: Delete a review
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /recently-viewed:
+    get:
+      operationId: listRecentlyViewed
+      tags: [recently-viewed]
+      summary: Get recently viewed games
+      responses:
+        "200":
+          description: Recently viewed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecentlyViewed"
+    post:
+      operationId: trackRecentlyViewed
+      tags: [recently-viewed]
+      summary: Track a game view
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecentlyViewedInput"
+      responses:
+        "201":
+          description: Tracked
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecentlyViewed"
+
+  /pc-check:
+    post:
+      operationId: checkPcCompatibility
+      tags: [pc-check]
+      summary: Check PC compatibility for a game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PcCheckInput"
+      responses:
+        "200":
+          description: Compatibility result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PcCheckResult"
+
+  /news:
+    get:
+      operationId: listNews
+      tags: [news]
+      summary: Get gaming news
+      parameters:
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Gaming news
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/NewsArticle"
+
+  /featured:
+    get:
+      operationId: listFeatured
+      tags: [featured]
+      summary: Get featured game collections
+      responses:
+        "200":
+          description: Featured collections
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FeaturedCollection"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +495,605 @@ components:
       required:
         - status
 
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    GameSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        name:
+          type: string
+        background_image:
+          type: ["string", "null"]
+        rating:
+          type: number
+        rating_top:
+          type: integer
+        ratings_count:
+          type: integer
+        released:
+          type: ["string", "null"]
+        metacritic:
+          type: ["integer", "null"]
+        playtime:
+          type: integer
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/GenreSummary"
+        platforms:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlatformEntry"
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/TagSummary"
+        short_screenshots:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScreenshotEntry"
+      required:
+        - id
+        - slug
+        - name
+        - rating
+        - rating_top
+        - ratings_count
+        - playtime
+        - genres
+        - platforms
+        - tags
+
+    GameDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        name:
+          type: string
+        background_image:
+          type: ["string", "null"]
+        background_image_additional:
+          type: ["string", "null"]
+        description_raw:
+          type: string
+        rating:
+          type: number
+        rating_top:
+          type: integer
+        ratings_count:
+          type: integer
+        released:
+          type: ["string", "null"]
+        metacritic:
+          type: ["integer", "null"]
+        playtime:
+          type: integer
+        website:
+          type: string
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/GenreSummary"
+        platforms:
+          type: array
+          items:
+            $ref: "#/components/schemas/PlatformEntry"
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/TagSummary"
+        developers:
+          type: array
+          items:
+            $ref: "#/components/schemas/CompanySummary"
+        publishers:
+          type: array
+          items:
+            $ref: "#/components/schemas/CompanySummary"
+        esrb_rating:
+          type: ["object", "null"]
+          properties:
+            name:
+              type: string
+      required:
+        - id
+        - slug
+        - name
+        - description_raw
+        - rating
+        - rating_top
+        - ratings_count
+        - playtime
+        - genres
+        - platforms
+        - tags
+        - developers
+        - publishers
+
+    GameListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        next:
+          type: ["string", "null"]
+        previous:
+          type: ["string", "null"]
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/GameSummary"
+      required:
+        - count
+        - results
+
+    SearchResponse:
+      type: object
+      properties:
+        query:
+          type: string
+        intent:
+          type: string
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/GameSummary"
+      required:
+        - query
+        - intent
+        - count
+        - results
+
+    GenreSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+      required:
+        - id
+        - name
+        - slug
+
+    TagSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+      required:
+        - id
+        - name
+        - slug
+
+    PlatformEntry:
+      type: object
+      properties:
+        platform:
+          $ref: "#/components/schemas/PlatformSummary"
+        requirements:
+          type: ["object", "null"]
+          properties:
+            minimum:
+              type: string
+            recommended:
+              type: string
+      required:
+        - platform
+
+    PlatformSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+      required:
+        - id
+        - name
+        - slug
+
+    ScreenshotEntry:
+      type: object
+      properties:
+        id:
+          type: integer
+        image:
+          type: string
+      required:
+        - id
+        - image
+
+    CompanySummary:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+      required:
+        - id
+        - name
+        - slug
+
+    GenreListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Genre"
+      required:
+        - count
+        - results
+
+    Genre:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        games_count:
+          type: integer
+        image_background:
+          type: string
+      required:
+        - id
+        - name
+        - slug
+        - games_count
+
+    PlatformListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/Platform"
+      required:
+        - count
+        - results
+
+    Platform:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        games_count:
+          type: integer
+        image_background:
+          type: string
+      required:
+        - id
+        - name
+        - slug
+        - games_count
+
+    ScreenshotListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScreenshotEntry"
+      required:
+        - count
+        - results
+
+    RecommendationItem:
+      type: object
+      properties:
+        game:
+          $ref: "#/components/schemas/GameSummary"
+        reason:
+          type: string
+        score:
+          type: number
+      required:
+        - game
+        - reason
+        - score
+
+    RecommendationListResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/RecommendationItem"
+        based_on:
+          type: string
+      required:
+        - results
+        - based_on
+
+    Favorite:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        gameSlug:
+          type: string
+        gameName:
+          type: string
+        gameBackground:
+          type: ["string", "null"]
+        gameRating:
+          type: number
+        gameGenres:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - gameSlug
+        - gameName
+        - gameRating
+        - gameGenres
+        - createdAt
+
+    FavoriteInput:
+      type: object
+      properties:
+        gameSlug:
+          type: string
+        gameName:
+          type: string
+        gameBackground:
+          type: string
+        gameRating:
+          type: number
+        gameGenres:
+          type: string
+      required:
+        - gameSlug
+        - gameName
+        - gameRating
+        - gameGenres
+
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        username:
+          type: string
+        gameSlug:
+          type: string
+        rating:
+          type: integer
+        content:
+          type: string
+        helpfulVotes:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - username
+        - gameSlug
+        - rating
+        - content
+        - helpfulVotes
+        - createdAt
+
+    ReviewInput:
+      type: object
+      properties:
+        gameSlug:
+          type: string
+        rating:
+          type: integer
+        content:
+          type: string
+        username:
+          type: string
+      required:
+        - gameSlug
+        - rating
+        - content
+        - username
+
+    RecentlyViewed:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        gameSlug:
+          type: string
+        gameName:
+          type: string
+        gameBackground:
+          type: ["string", "null"]
+        gameRating:
+          type: number
+        gameGenres:
+          type: string
+        viewedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - gameSlug
+        - gameName
+        - gameRating
+        - gameGenres
+        - viewedAt
+
+    RecentlyViewedInput:
+      type: object
+      properties:
+        gameSlug:
+          type: string
+        gameName:
+          type: string
+        gameBackground:
+          type: string
+        gameRating:
+          type: number
+        gameGenres:
+          type: string
+      required:
+        - gameSlug
+        - gameName
+        - gameRating
+        - gameGenres
+
+    PcCheckInput:
+      type: object
+      properties:
+        gameSlug:
+          type: string
+        cpu:
+          type: string
+        gpu:
+          type: string
+        ram:
+          type: integer
+      required:
+        - gameSlug
+        - cpu
+        - gpu
+        - ram
+
+    PcCheckResult:
+      type: object
+      properties:
+        gameSlug:
+          type: string
+        gameName:
+          type: string
+        result:
+          type: string
+          enum: ["can_run", "may_run", "not_recommended"]
+        explanation:
+          type: string
+        minimumRequirements:
+          type: string
+        recommendedRequirements:
+          type: string
+        details:
+          type: array
+          items:
+            $ref: "#/components/schemas/PcCheckDetail"
+      required:
+        - gameSlug
+        - gameName
+        - result
+        - explanation
+        - details
+
+    PcCheckDetail:
+      type: object
+      properties:
+        component:
+          type: string
+        status:
+          type: string
+          enum: ["pass", "warn", "fail"]
+        message:
+          type: string
+      required:
+        - component
+        - status
+        - message
+
+    NewsArticle:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        excerpt:
+          type: string
+        imageUrl:
+          type: string
+        source:
+          type: string
+        publishedAt:
+          type: string
+        category:
+          type: string
+        url:
+          type: string
+      required:
+        - id
+        - title
+        - excerpt
+        - imageUrl
+        - source
+        - publishedAt
+        - category
+        - url
+
+    FeaturedCollection:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        games:
+          type: array
+          items:
+            $ref: "#/components/schemas/GameSummary"
+      required:
+        - id
+        - title
+        - description
+        - imageUrl
+        - games

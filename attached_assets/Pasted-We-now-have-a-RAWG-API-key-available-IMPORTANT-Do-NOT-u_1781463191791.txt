@@ -1,0 +1,108 @@
+We now have a RAWG API key available.
+
+IMPORTANT:
+
+Do NOT use OpenAI, GPT APIs, Gemini APIs, Anthropic APIs, or any paid AI provider.
+
+Assume there is no budget for AI APIs.
+
+Build GamerVerse without paid AI services.
+
+Use:
+
+* RAWG API
+* Firebase
+* Firestore
+* Firebase Auth
+* Firebase Storage
+
+Architecture Requirements:
+
+1. Integrate RAWG API as the primary game data source.
+2. Create a cache-first architecture.
+3. When a user searches for a game:
+
+   * Check Firestore cache first.
+   * If the game exists, use cached data.
+   * If not, fetch from RAWG.
+   * Save the result to Firestore.
+   * Serve cached data for future requests.
+4. Reduce unnecessary RAWG API calls.
+5. Design for long-term scalability.
+
+Recommendations System:
+
+Do NOT use external AI APIs.
+
+Instead create a smart recommendation engine using:
+
+* Genres
+* Tags
+* Platforms
+* Ratings
+* Similar games
+* User favorites
+* Recently viewed games
+
+Generate recommendation explanations such as:
+
+"Recommended because you enjoy open-world action games."
+
+UI Requirements:
+
+The current UI feels too empty.
+
+Upgrade the UI dramatically.
+
+Add:
+
+* Cinematic hero section
+* Premium dark theme
+* Neon blue and purple accents
+* Glassmorphism
+* Smooth Framer Motion animations
+* Better spacing
+* Better typography
+* Trending games section
+* New releases section
+* Top-rated games section
+* Popular genres section
+* Complete footer
+* Rich game cards
+* Loading skeletons
+
+Game Details Page:
+
+Display:
+
+* Cover image
+* Screenshots
+* Trailer
+* Description
+* Genres
+* Platforms
+* Ratings
+* Release date
+* Developers
+* Publishers
+* Similar games
+* System requirements
+
+Can I Run This Game:
+
+Create a dedicated system where users can enter:
+
+* CPU
+* GPU
+* RAM
+
+and receive compatibility guidance.
+
+Before implementing, audit the current project and tell me:
+
+1. What is already complete?
+2. What is missing?
+3. What should be improved?
+4. Estimated completion percentage.
+
+Then continue building the highest-priority missing features.
