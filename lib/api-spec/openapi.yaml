@@ -485,6 +485,172 @@ paths:
                 items:
                   $ref: "#/components/schemas/FeaturedCollection"
 
+  /collections:
+    get:
+      operationId: listCollections
+      tags: [collections]
+      summary: List all curated game collections
+      responses:
+        "200":
+          description: Collections list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CollectionSummary"
+
+  /collections/{slug}:
+    get:
+      operationId: getCollection
+      tags: [collections]
+      summary: Get a curated collection with games
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Collection with games
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectionDetail"
+        "404":
+          description: Not found
+
+  /game-requests:
+    get:
+      operationId: listGameRequests
+      tags: [game-requests]
+      summary: List game requests
+      responses:
+        "200":
+          description: Game requests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GameRequest"
+    post:
+      operationId: createGameRequest
+      tags: [game-requests]
+      summary: Submit a game request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GameRequestInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameRequest"
+
+  /mod-requests:
+    get:
+      operationId: listModRequests
+      tags: [mod-requests]
+      summary: List mod requests
+      responses:
+        "200":
+          description: Mod requests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ModRequest"
+    post:
+      operationId: createModRequest
+      tags: [mod-requests]
+      summary: Submit a mod request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ModRequestInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModRequest"
+
+  /mod-requests/{id}/vote:
+    post:
+      operationId: voteModRequest
+      tags: [mod-requests]
+      summary: Vote for a mod request
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Updated mod request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModRequest"
+
+  /wishlist:
+    get:
+      operationId: listWishlist
+      tags: [wishlist]
+      summary: Get user wishlist
+      responses:
+        "200":
+          description: Wishlist
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WishlistItem"
+    post:
+      operationId: addToWishlist
+      tags: [wishlist]
+      summary: Add game to wishlist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WishlistInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WishlistItem"
+
+  /wishlist/{gameSlug}:
+    delete:
+      operationId: removeFromWishlist
+      tags: [wishlist]
+      summary: Remove game from wishlist
+      parameters:
+        - name: gameSlug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Removed
+
 components:
   schemas:
     HealthStatus:
@@ -1097,3 +1263,180 @@ components:
         - description
         - imageUrl
         - games
+
+    CollectionSummary:
+      type: object
+      properties:
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        emoji:
+          type: string
+      required:
+        - slug
+        - title
+        - description
+        - emoji
+
+    CollectionDetail:
+      type: object
+      properties:
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        emoji:
+          type: string
+        count:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/GameSummary"
+      required:
+        - slug
+        - title
+        - description
+        - emoji
+        - count
+        - results
+
+    GameRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: ["string", "null"]
+        gameName:
+          type: string
+        platform:
+          type: string
+        notes:
+          type: ["string", "null"]
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - gameName
+        - platform
+        - status
+        - createdAt
+
+    GameRequestInput:
+      type: object
+      properties:
+        gameName:
+          type: string
+        platform:
+          type: string
+        notes:
+          type: string
+      required:
+        - gameName
+        - platform
+
+    ModRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: ["string", "null"]
+        gameName:
+          type: string
+        modName:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        status:
+          type: string
+        votes:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - gameName
+        - modName
+        - description
+        - category
+        - status
+        - votes
+        - createdAt
+
+    ModRequestInput:
+      type: object
+      properties:
+        gameName:
+          type: string
+        modName:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+      required:
+        - gameName
+        - modName
+        - description
+        - category
+
+    WishlistItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: string
+        gameSlug:
+          type: string
+        gameName:
+          type: string
+        gameBackground:
+          type: ["string", "null"]
+        gameRating:
+          type: number
+        gameGenres:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - gameSlug
+        - gameName
+        - gameRating
+        - gameGenres
+        - createdAt
+
+    WishlistInput:
+      type: object
+      properties:
+        gameSlug:
+          type: string
+        gameName:
+          type: string
+        gameBackground:
+          type: string
+        gameRating:
+          type: number
+        gameGenres:
+          type: string
+      required:
+        - gameSlug
+        - gameName
+        - gameRating
+        - gameGenres

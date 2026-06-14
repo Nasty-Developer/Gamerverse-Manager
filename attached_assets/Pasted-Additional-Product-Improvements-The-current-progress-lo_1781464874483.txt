@@ -1,0 +1,114 @@
+Additional Product Improvements
+
+The current progress looks great.
+
+Please improve the branding and product identity further.
+
+1. Replace the current icon/logo if it feels generic.
+
+Create a more premium gaming startup identity.
+
+Requirements:
+
+* Modern
+* Memorable
+* Gaming-focused
+* Futuristic
+* Works in navbar, favicon, and mobile devices
+
+2. Make the platform's core features visible immediately.
+
+The homepage should clearly communicate what GamerVerse does.
+
+Create feature highlight sections for:
+
+* Compare Games
+* Request Mod Links
+* System Requirements Checker
+* Wishlist
+* Game Discovery
+* Recommendations
+
+These should be visible near the top of the homepage.
+
+3. Add a Wishlist System.
+
+Users should be able to:
+
+* Add games to wishlist
+* Remove games from wishlist
+* View wishlist page
+* Track upcoming games
+
+Store wishlists in Firestore.
+
+4. Upgrade the Request Mod Links feature.
+
+Users can:
+
+* Request a mod
+* Vote on requested mods
+* Track request status
+
+Statuses:
+
+* Requested
+* Under Review
+* Available
+* Rejected
+
+Store everything in Firestore.
+
+5. Create feature cards that explain the platform.
+
+Examples:
+
+Compare Games
+Compare graphics, story, multiplayer, performance and more.
+
+Request Mod Links
+Request mods for your favorite games and track progress.
+
+System Requirements
+Check if your PC can run a game before downloading it.
+
+Wishlist
+Save games and track upcoming releases.
+
+6. Improve navigation.
+
+Add quick access links to:
+
+* Home
+* Discover
+* Compare
+* System Requirements
+* Wishlist
+* Request Game
+* Request Mod
+* News
+* Community
+
+7. Improve Game Detail Pages.
+
+Add action buttons:
+
+* Add to Wishlist
+* Compare Game
+* Check Compatibility
+* Request Mod
+* Share Game
+
+8. Create a stronger platform identity.
+
+The homepage should instantly communicate:
+
+"Search Games"
+"Compare Games"
+"Check System Requirements"
+"Request Mods"
+"Build Your Wishlist"
+
+These should become core pillars of GamerVerse.
+
+Continue improving UI, UX, branding, animations, and responsiveness while implementing these features.

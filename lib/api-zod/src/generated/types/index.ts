@@ -6,6 +6,8 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from './collectionDetail';
+export * from './collectionSummary';
 export * from './companySummary';
 export * from './errorResponse';
 export * from './favorite';
@@ -14,6 +16,8 @@ export * from './featuredCollection';
 export * from './gameDetail';
 export * from './gameDetailEsrbRating';
 export * from './gameListResponse';
+export * from './gameRequest';
+export * from './gameRequestInput';
 export * from './gameSummary';
 export * from './genre';
 export * from './genreListResponse';
@@ -26,6 +30,8 @@ export * from './healthStatus';
 export * from './listGamesParams';
 export * from './listNewsParams';
 export * from './listReviewsParams';
+export * from './modRequest';
+export * from './modRequestInput';
 export * from './newsArticle';
 export * from './pcCheckDetail';
 export * from './pcCheckDetailStatus';
@@ -48,3 +54,5 @@ export * from './screenshotListResponse';
 export * from './searchGamesParams';
 export * from './searchResponse';
 export * from './tagSummary';
+export * from './wishlistInput';
+export * from './wishlistItem';

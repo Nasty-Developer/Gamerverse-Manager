@@ -2,7 +2,7 @@ import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ClerkProvider, SignIn, SignUp, Show, useClerk } from "@clerk/react";
+import { ClerkProvider, SignIn, SignUp } from "@clerk/react";
 import { publishableKeyFromHost } from "@clerk/react/internal";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
@@ -11,6 +11,12 @@ import Discover from "@/pages/discover";
 import GameDetail from "@/pages/game-detail";
 import PcCheck from "@/pages/pc-check";
 import Profile from "@/pages/profile";
+import Collections from "@/pages/collections";
+import CollectionDetail from "@/pages/collection-detail";
+import Wishlist from "@/pages/wishlist";
+import RequestGame from "@/pages/request-game";
+import RequestMod from "@/pages/request-mod";
+import Sitemap from "@/pages/sitemap";
 import { Layout } from "@/components/layout";
 
 const queryClient = new QueryClient();
@@ -27,10 +33,6 @@ function stripBase(path: string): string {
   return basePath && path.startsWith(basePath)
     ? path.slice(basePath.length) || "/"
     : path;
-}
-
-if (!clerkPubKey) {
-  console.warn("Missing VITE_CLERK_PUBLISHABLE_KEY in .env file");
 }
 
 const clerkAppearance = {
@@ -61,9 +63,13 @@ const clerkAppearance = {
   },
 };
 
+const authBg = {
+  backgroundImage: "linear-gradient(to bottom, rgba(10, 10, 15, 0.8), rgba(10, 10, 15, 1)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop')",
+};
+
 function SignInPage() {
   return (
-    <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 py-12 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(to bottom, rgba(10, 10, 15, 0.8), rgba(10, 10, 15, 1)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop')" }}>
+    <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 py-12 bg-cover bg-center" style={authBg}>
       <SignIn routing="path" path={`${basePath}/sign-in`} signUpUrl={`${basePath}/sign-up`} />
     </div>
   );
@@ -71,7 +77,7 @@ function SignInPage() {
 
 function SignUpPage() {
   return (
-    <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 py-12 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(to bottom, rgba(10, 10, 15, 0.8), rgba(10, 10, 15, 1)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop')" }}>
+    <div className="flex min-h-[100dvh] items-center justify-center bg-background px-4 py-12 bg-cover bg-center" style={authBg}>
       <SignUp routing="path" path={`${basePath}/sign-up`} signInUrl={`${basePath}/sign-in`} />
     </div>
   );
@@ -87,6 +93,12 @@ function Router() {
         <Route path="/games/:slug" component={GameDetail} />
         <Route path="/pc-check" component={PcCheck} />
         <Route path="/profile" component={Profile} />
+        <Route path="/collections" component={Collections} />
+        <Route path="/collections/:slug" component={CollectionDetail} />
+        <Route path="/wishlist" component={Wishlist} />
+        <Route path="/request-game" component={RequestGame} />
+        <Route path="/request-mod" component={RequestMod} />
+        <Route path="/sitemap" component={Sitemap} />
         <Route path="/sign-in/*?" component={SignInPage} />
         <Route path="/sign-up/*?" component={SignUpPage} />
         <Route component={NotFound} />
@@ -97,7 +109,6 @@ function Router() {
 
 function ClerkProviderWithRoutes() {
   const [, setLocation] = useLocation();
-
   return (
     <ClerkProvider
       publishableKey={clerkPubKey || ""}
@@ -113,7 +124,7 @@ function ClerkProviderWithRoutes() {
   );
 }
 
-function App() {
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -125,5 +136,3 @@ function App() {
     </QueryClientProvider>
   );
 }
-
-export default App;

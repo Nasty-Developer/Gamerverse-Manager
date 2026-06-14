@@ -286,6 +286,80 @@ export interface FeaturedCollection {
   games: GameSummary[];
 }
 
+export interface CollectionSummary {
+  slug: string;
+  title: string;
+  description: string;
+  emoji: string;
+}
+
+export interface CollectionDetail {
+  slug: string;
+  title: string;
+  description: string;
+  emoji: string;
+  count: number;
+  results: GameSummary[];
+}
+
+export interface GameRequest {
+  id: number;
+  /** @nullable */
+  userId?: string | null;
+  gameName: string;
+  platform: string;
+  /** @nullable */
+  notes?: string | null;
+  status: string;
+  createdAt: string;
+}
+
+export interface GameRequestInput {
+  gameName: string;
+  platform: string;
+  notes?: string;
+}
+
+export interface ModRequest {
+  id: number;
+  /** @nullable */
+  userId?: string | null;
+  gameName: string;
+  modName: string;
+  description: string;
+  category: string;
+  status: string;
+  votes: number;
+  createdAt: string;
+}
+
+export interface ModRequestInput {
+  gameName: string;
+  modName: string;
+  description: string;
+  category: string;
+}
+
+export interface WishlistItem {
+  id: number;
+  userId: string;
+  gameSlug: string;
+  gameName: string;
+  /** @nullable */
+  gameBackground?: string | null;
+  gameRating: number;
+  gameGenres: string;
+  createdAt: string;
+}
+
+export interface WishlistInput {
+  gameSlug: string;
+  gameName: string;
+  gameBackground?: string;
+  gameRating: number;
+  gameGenres: string;
+}
+
 export type ListGamesParams = {
 search?: string;
 genres?: string;

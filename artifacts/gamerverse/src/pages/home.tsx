@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search as SearchIcon, ArrowRight, Gamepad2, Flame, Calendar, Star, LayoutGrid } from "lucide-react";
+import { Search as SearchIcon, ArrowRight, Gamepad2, Flame, Calendar, Star, LayoutGrid, Cpu, Bookmark, Wrench, Scale, Gamepad } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -140,8 +140,40 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Feature Highlights */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-black text-white mb-3">Everything You Need to Find Your Game</h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">GamerVerse brings together discovery, compatibility, and community in one place.</p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { icon: SearchIcon, color: "text-primary bg-primary/20 border-primary/30", title: "Game Discovery", desc: "Natural language search — 'best open world RPGs', 'games like GTA V', 'best horror games'.", href: "/search" },
+            { icon: Scale, color: "text-accent bg-accent/20 border-accent/30", title: "Compare Games", desc: "Compare ratings, metacritic scores, genres, platforms, and requirements side by side.", href: "/discover" },
+            { icon: Cpu, color: "text-green-400 bg-green-500/20 border-green-500/30", title: "System Requirements", desc: "Enter your CPU, GPU, and RAM to see if you can run any game before downloading.", href: "/pc-check" },
+            { icon: Bookmark, color: "text-yellow-400 bg-yellow-500/20 border-yellow-500/30", title: "Wishlist", desc: "Save games you want to play and build your personal gaming backlog.", href: "/wishlist" },
+            { icon: Gamepad, color: "text-orange-400 bg-orange-500/20 border-orange-500/30", title: "Request a Game", desc: "Can't find a game? Submit a request and we'll add it to the platform.", href: "/request-game" },
+            { icon: Wrench, color: "text-pink-400 bg-pink-500/20 border-pink-500/30", title: "Request Mod Links", desc: "Request mods for your favorite games. Vote on requests and track their status.", href: "/request-mod" },
+          ].map(({ icon: Icon, color, title, desc, href }) => (
+            <motion.button
+              key={title}
+              whileHover={{ scale: 1.02, y: -2 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setLocation(href)}
+              className="group bg-card border border-white/10 rounded-2xl p-6 text-left hover:border-white/20 transition-all"
+            >
+              <div className={`inline-flex p-3 rounded-xl border mb-4 ${color}`}>
+                <Icon className="w-5 h-5" />
+              </div>
+              <h3 className="text-white font-bold mb-2 group-hover:text-primary transition-colors">{title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{desc}</p>
+            </motion.button>
+          ))}
+        </div>
+      </section>
+
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-12 space-y-24">
+      <div className="container mx-auto px-4 pb-12 space-y-24">
         
         {/* Trending Section */}
         <section>

@@ -20,12 +20,16 @@ import type {
 } from '@tanstack/react-query';
 
 import type {
+  CollectionDetail,
+  CollectionSummary,
   ErrorResponse,
   Favorite,
   FavoriteInput,
   FeaturedCollection,
   GameDetail,
   GameListResponse,
+  GameRequest,
+  GameRequestInput,
   GenreListResponse,
   GetNewReleasesParams,
   GetRecommendationsParams,
@@ -35,6 +39,8 @@ import type {
   ListGamesParams,
   ListNewsParams,
   ListReviewsParams,
+  ModRequest,
+  ModRequestInput,
   NewsArticle,
   PcCheckInput,
   PcCheckResult,
@@ -46,7 +52,9 @@ import type {
   ReviewInput,
   ScreenshotListResponse,
   SearchGamesParams,
-  SearchResponse
+  SearchResponse,
+  WishlistInput,
+  WishlistItem
 } from './api.schemas';
 
 import { customFetch } from '../custom-fetch';
@@ -1849,4 +1857,742 @@ export function useListFeatured<TData = Awaited<ReturnType<typeof listFeatured>>
 
 
 
+
+export const getListCollectionsUrl = () => {
+
+
+
+
+  return `/api/collections`
+}
+
+/**
+ * @summary List all curated game collections
+ */
+export const listCollections = async ( options?: RequestInit): Promise<CollectionSummary[]> => {
+
+  return customFetch<CollectionSummary[]>(getListCollectionsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListCollectionsQueryKey = () => {
+    return [
+    `/api/collections`
+    ] as const;
+    }
+
+
+export const getListCollectionsQueryOptions = <TData = Awaited<ReturnType<typeof listCollections>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listCollections>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListCollectionsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listCollections>>> = ({ signal }) => listCollections({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listCollections>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListCollectionsQueryResult = NonNullable<Awaited<ReturnType<typeof listCollections>>>
+export type ListCollectionsQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary List all curated game collections
+ */
+
+export function useListCollections<TData = Awaited<ReturnType<typeof listCollections>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listCollections>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListCollectionsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getGetCollectionUrl = (slug: string,) => {
+
+
+
+
+  return `/api/collections/${slug}`
+}
+
+/**
+ * @summary Get a curated collection with games
+ */
+export const getCollection = async (slug: string, options?: RequestInit): Promise<CollectionDetail> => {
+
+  return customFetch<CollectionDetail>(getGetCollectionUrl(slug),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetCollectionQueryKey = (slug: string,) => {
+    return [
+    `/api/collections/${slug}`
+    ] as const;
+    }
+
+
+export const getGetCollectionQueryOptions = <TData = Awaited<ReturnType<typeof getCollection>>, TError = ErrorType<void>>(slug: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCollection>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetCollectionQueryKey(slug);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCollection>>> = ({ signal }) => getCollection(slug, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: !!(slug), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCollection>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type GetCollectionQueryResult = NonNullable<Awaited<ReturnType<typeof getCollection>>>
+export type GetCollectionQueryError = ErrorType<void>
+
+
+/**
+ * @summary Get a curated collection with games
+ */
+
+export function useGetCollection<TData = Awaited<ReturnType<typeof getCollection>>, TError = ErrorType<void>>(
+ slug: string, options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof getCollection>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getGetCollectionQueryOptions(slug,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getListGameRequestsUrl = () => {
+
+
+
+
+  return `/api/game-requests`
+}
+
+/**
+ * @summary List game requests
+ */
+export const listGameRequests = async ( options?: RequestInit): Promise<GameRequest[]> => {
+
+  return customFetch<GameRequest[]>(getListGameRequestsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListGameRequestsQueryKey = () => {
+    return [
+    `/api/game-requests`
+    ] as const;
+    }
+
+
+export const getListGameRequestsQueryOptions = <TData = Awaited<ReturnType<typeof listGameRequests>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listGameRequests>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListGameRequestsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listGameRequests>>> = ({ signal }) => listGameRequests({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listGameRequests>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListGameRequestsQueryResult = NonNullable<Awaited<ReturnType<typeof listGameRequests>>>
+export type ListGameRequestsQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary List game requests
+ */
+
+export function useListGameRequests<TData = Awaited<ReturnType<typeof listGameRequests>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listGameRequests>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListGameRequestsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getCreateGameRequestUrl = () => {
+
+
+
+
+  return `/api/game-requests`
+}
+
+/**
+ * @summary Submit a game request
+ */
+export const createGameRequest = async (gameRequestInput: GameRequestInput, options?: RequestInit): Promise<GameRequest> => {
+
+  return customFetch<GameRequest>(getCreateGameRequestUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      gameRequestInput,)
+  }
+);}
+
+
+
+
+export const getCreateGameRequestMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createGameRequest>>, TError,{data: BodyType<GameRequestInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createGameRequest>>, TError,{data: BodyType<GameRequestInput>}, TContext> => {
+
+const mutationKey = ['createGameRequest'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createGameRequest>>, {data: BodyType<GameRequestInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createGameRequest(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateGameRequestMutationResult = NonNullable<Awaited<ReturnType<typeof createGameRequest>>>
+    export type CreateGameRequestMutationBody = BodyType<GameRequestInput>
+    export type CreateGameRequestMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Submit a game request
+ */
+export const useCreateGameRequest = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createGameRequest>>, TError,{data: BodyType<GameRequestInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof createGameRequest>>,
+        TError,
+        {data: BodyType<GameRequestInput>},
+        TContext
+      > => {
+      return useMutation(getCreateGameRequestMutationOptions(options));
+    }
+
+export const getListModRequestsUrl = () => {
+
+
+
+
+  return `/api/mod-requests`
+}
+
+/**
+ * @summary List mod requests
+ */
+export const listModRequests = async ( options?: RequestInit): Promise<ModRequest[]> => {
+
+  return customFetch<ModRequest[]>(getListModRequestsUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListModRequestsQueryKey = () => {
+    return [
+    `/api/mod-requests`
+    ] as const;
+    }
+
+
+export const getListModRequestsQueryOptions = <TData = Awaited<ReturnType<typeof listModRequests>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listModRequests>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListModRequestsQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listModRequests>>> = ({ signal }) => listModRequests({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listModRequests>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListModRequestsQueryResult = NonNullable<Awaited<ReturnType<typeof listModRequests>>>
+export type ListModRequestsQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary List mod requests
+ */
+
+export function useListModRequests<TData = Awaited<ReturnType<typeof listModRequests>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listModRequests>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListModRequestsQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getCreateModRequestUrl = () => {
+
+
+
+
+  return `/api/mod-requests`
+}
+
+/**
+ * @summary Submit a mod request
+ */
+export const createModRequest = async (modRequestInput: ModRequestInput, options?: RequestInit): Promise<ModRequest> => {
+
+  return customFetch<ModRequest>(getCreateModRequestUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      modRequestInput,)
+  }
+);}
+
+
+
+
+export const getCreateModRequestMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createModRequest>>, TError,{data: BodyType<ModRequestInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createModRequest>>, TError,{data: BodyType<ModRequestInput>}, TContext> => {
+
+const mutationKey = ['createModRequest'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createModRequest>>, {data: BodyType<ModRequestInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createModRequest(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateModRequestMutationResult = NonNullable<Awaited<ReturnType<typeof createModRequest>>>
+    export type CreateModRequestMutationBody = BodyType<ModRequestInput>
+    export type CreateModRequestMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Submit a mod request
+ */
+export const useCreateModRequest = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createModRequest>>, TError,{data: BodyType<ModRequestInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof createModRequest>>,
+        TError,
+        {data: BodyType<ModRequestInput>},
+        TContext
+      > => {
+      return useMutation(getCreateModRequestMutationOptions(options));
+    }
+
+export const getVoteModRequestUrl = (id: number,) => {
+
+
+
+
+  return `/api/mod-requests/${id}/vote`
+}
+
+/**
+ * @summary Vote for a mod request
+ */
+export const voteModRequest = async (id: number, options?: RequestInit): Promise<ModRequest> => {
+
+  return customFetch<ModRequest>(getVoteModRequestUrl(id),
+  {
+    ...options,
+    method: 'POST'
+
+
+  }
+);}
+
+
+
+
+export const getVoteModRequestMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof voteModRequest>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof voteModRequest>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['voteModRequest'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof voteModRequest>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  voteModRequest(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type VoteModRequestMutationResult = NonNullable<Awaited<ReturnType<typeof voteModRequest>>>
+
+    export type VoteModRequestMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Vote for a mod request
+ */
+export const useVoteModRequest = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof voteModRequest>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof voteModRequest>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getVoteModRequestMutationOptions(options));
+    }
+
+export const getListWishlistUrl = () => {
+
+
+
+
+  return `/api/wishlist`
+}
+
+/**
+ * @summary Get user wishlist
+ */
+export const listWishlist = async ( options?: RequestInit): Promise<WishlistItem[]> => {
+
+  return customFetch<WishlistItem[]>(getListWishlistUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListWishlistQueryKey = () => {
+    return [
+    `/api/wishlist`
+    ] as const;
+    }
+
+
+export const getListWishlistQueryOptions = <TData = Awaited<ReturnType<typeof listWishlist>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listWishlist>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListWishlistQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listWishlist>>> = ({ signal }) => listWishlist({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listWishlist>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListWishlistQueryResult = NonNullable<Awaited<ReturnType<typeof listWishlist>>>
+export type ListWishlistQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary Get user wishlist
+ */
+
+export function useListWishlist<TData = Awaited<ReturnType<typeof listWishlist>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listWishlist>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListWishlistQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getAddToWishlistUrl = () => {
+
+
+
+
+  return `/api/wishlist`
+}
+
+/**
+ * @summary Add game to wishlist
+ */
+export const addToWishlist = async (wishlistInput: WishlistInput, options?: RequestInit): Promise<WishlistItem> => {
+
+  return customFetch<WishlistItem>(getAddToWishlistUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      wishlistInput,)
+  }
+);}
+
+
+
+
+export const getAddToWishlistMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof addToWishlist>>, TError,{data: BodyType<WishlistInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof addToWishlist>>, TError,{data: BodyType<WishlistInput>}, TContext> => {
+
+const mutationKey = ['addToWishlist'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof addToWishlist>>, {data: BodyType<WishlistInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  addToWishlist(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type AddToWishlistMutationResult = NonNullable<Awaited<ReturnType<typeof addToWishlist>>>
+    export type AddToWishlistMutationBody = BodyType<WishlistInput>
+    export type AddToWishlistMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Add game to wishlist
+ */
+export const useAddToWishlist = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof addToWishlist>>, TError,{data: BodyType<WishlistInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof addToWishlist>>,
+        TError,
+        {data: BodyType<WishlistInput>},
+        TContext
+      > => {
+      return useMutation(getAddToWishlistMutationOptions(options));
+    }
+
+export const getRemoveFromWishlistUrl = (gameSlug: string,) => {
+
+
+
+
+  return `/api/wishlist/${gameSlug}`
+}
+
+/**
+ * @summary Remove game from wishlist
+ */
+export const removeFromWishlist = async (gameSlug: string, options?: RequestInit): Promise<void> => {
+
+  return customFetch<void>(getRemoveFromWishlistUrl(gameSlug),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+export const getRemoveFromWishlistMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof removeFromWishlist>>, TError,{gameSlug: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof removeFromWishlist>>, TError,{gameSlug: string}, TContext> => {
+
+const mutationKey = ['removeFromWishlist'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof removeFromWishlist>>, {gameSlug: string}> = (props) => {
+          const {gameSlug} = props ?? {};
+
+          return  removeFromWishlist(gameSlug,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type RemoveFromWishlistMutationResult = NonNullable<Awaited<ReturnType<typeof removeFromWishlist>>>
+
+    export type RemoveFromWishlistMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Remove game from wishlist
+ */
+export const useRemoveFromWishlist = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof removeFromWishlist>>, TError,{gameSlug: string}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof removeFromWishlist>>,
+        TError,
+        {gameSlug: string},
+        TContext
+      > => {
+      return useMutation(getRemoveFromWishlistMutationOptions(options));
+    }
 

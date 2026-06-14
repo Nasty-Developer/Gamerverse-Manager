@@ -11,6 +11,10 @@ import recentlyViewedRouter from "./recently-viewed";
 import pcCheckRouter from "./pc-check";
 import newsRouter from "./news";
 import featuredRouter from "./featured";
+import gameRequestsRouter from "./game-requests";
+import modRequestsRouter from "./mod-requests";
+import wishlistRouter from "./wishlist";
+import collectionsRouter from "./collections";
 
 const router: IRouter = Router();
 
@@ -26,5 +30,9 @@ router.use("/recently-viewed", recentlyViewedRouter);
 router.use("/pc-check", pcCheckRouter);
 router.use("/news", newsRouter);
 router.use("/featured", featuredRouter);
+router.use("/game-requests", gameRequestsRouter);
+router.use("/mod-requests", modRequestsRouter);
+router.use("/wishlist", wishlistRouter);
+router.use("/collections", collectionsRouter);
 
 export default router;

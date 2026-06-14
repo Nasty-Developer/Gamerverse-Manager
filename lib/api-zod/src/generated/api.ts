@@ -690,3 +690,177 @@ export const ListFeaturedResponseItem = zod.object({
 export const ListFeaturedResponse = zod.array(ListFeaturedResponseItem)
 
 
+/**
+ * @summary List all curated game collections
+ */
+export const ListCollectionsResponseItem = zod.object({
+  "slug": zod.string(),
+  "title": zod.string(),
+  "description": zod.string(),
+  "emoji": zod.string()
+})
+export const ListCollectionsResponse = zod.array(ListCollectionsResponseItem)
+
+
+/**
+ * @summary Get a curated collection with games
+ */
+export const GetCollectionParams = zod.object({
+  "slug": zod.coerce.string()
+})
+
+export const GetCollectionResponse = zod.object({
+  "slug": zod.string(),
+  "title": zod.string(),
+  "description": zod.string(),
+  "emoji": zod.string(),
+  "count": zod.number(),
+  "results": zod.array(zod.object({
+  "id": zod.number(),
+  "slug": zod.string(),
+  "name": zod.string(),
+  "background_image": zod.string().nullish(),
+  "rating": zod.number(),
+  "rating_top": zod.number(),
+  "ratings_count": zod.number(),
+  "released": zod.string().nullish(),
+  "metacritic": zod.number().nullish(),
+  "playtime": zod.number(),
+  "genres": zod.array(zod.object({
+  "id": zod.number(),
+  "name": zod.string(),
+  "slug": zod.string()
+})),
+  "platforms": zod.array(zod.object({
+  "platform": zod.object({
+  "id": zod.number(),
+  "name": zod.string(),
+  "slug": zod.string()
+}),
+  "requirements": zod.object({
+  "minimum": zod.string().optional(),
+  "recommended": zod.string().optional()
+}).nullish()
+})),
+  "tags": zod.array(zod.object({
+  "id": zod.number(),
+  "name": zod.string(),
+  "slug": zod.string()
+})),
+  "short_screenshots": zod.array(zod.object({
+  "id": zod.number(),
+  "image": zod.string()
+})).optional()
+}))
+})
+
+
+/**
+ * @summary List game requests
+ */
+export const ListGameRequestsResponseItem = zod.object({
+  "id": zod.number(),
+  "userId": zod.string().nullish(),
+  "gameName": zod.string(),
+  "platform": zod.string(),
+  "notes": zod.string().nullish(),
+  "status": zod.string(),
+  "createdAt": zod.coerce.date()
+})
+export const ListGameRequestsResponse = zod.array(ListGameRequestsResponseItem)
+
+
+/**
+ * @summary Submit a game request
+ */
+export const CreateGameRequestBody = zod.object({
+  "gameName": zod.string(),
+  "platform": zod.string(),
+  "notes": zod.string().optional()
+})
+
+
+/**
+ * @summary List mod requests
+ */
+export const ListModRequestsResponseItem = zod.object({
+  "id": zod.number(),
+  "userId": zod.string().nullish(),
+  "gameName": zod.string(),
+  "modName": zod.string(),
+  "description": zod.string(),
+  "category": zod.string(),
+  "status": zod.string(),
+  "votes": zod.number(),
+  "createdAt": zod.coerce.date()
+})
+export const ListModRequestsResponse = zod.array(ListModRequestsResponseItem)
+
+
+/**
+ * @summary Submit a mod request
+ */
+export const CreateModRequestBody = zod.object({
+  "gameName": zod.string(),
+  "modName": zod.string(),
+  "description": zod.string(),
+  "category": zod.string()
+})
+
+
+/**
+ * @summary Vote for a mod request
+ */
+export const VoteModRequestParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const VoteModRequestResponse = zod.object({
+  "id": zod.number(),
+  "userId": zod.string().nullish(),
+  "gameName": zod.string(),
+  "modName": zod.string(),
+  "description": zod.string(),
+  "category": zod.string(),
+  "status": zod.string(),
+  "votes": zod.number(),
+  "createdAt": zod.coerce.date()
+})
+
+
+/**
+ * @summary Get user wishlist
+ */
+export const ListWishlistResponseItem = zod.object({
+  "id": zod.number(),
+  "userId": zod.string(),
+  "gameSlug": zod.string(),
+  "gameName": zod.string(),
+  "gameBackground": zod.string().nullish(),
+  "gameRating": zod.number(),
+  "gameGenres": zod.string(),
+  "createdAt": zod.coerce.date()
+})
+export const ListWishlistResponse = zod.array(ListWishlistResponseItem)
+
+
+/**
+ * @summary Add game to wishlist
+ */
+export const AddToWishlistBody = zod.object({
+  "gameSlug": zod.string(),
+  "gameName": zod.string(),
+  "gameBackground": zod.string().optional(),
+  "gameRating": zod.number(),
+  "gameGenres": zod.string()
+})
+
+
+/**
+ * @summary Remove game from wishlist
+ */
+export const RemoveFromWishlistParams = zod.object({
+  "gameSlug": zod.coerce.string()
+})
+
+
