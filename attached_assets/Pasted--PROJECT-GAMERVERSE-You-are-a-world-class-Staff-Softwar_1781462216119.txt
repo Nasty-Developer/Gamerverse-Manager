@@ -1,0 +1,426 @@
+# PROJECT: GAMERVERSE
+
+You are a world-class Staff Software Engineer, Senior Product Designer, AI Architect, Growth Engineer, Startup CTO, and UX Specialist.
+
+Your task is to build GamerVerse.
+
+This is NOT a simple gaming website.
+
+This is NOT a game database.
+
+This is NOT a CRUD application.
+
+GamerVerse should become the ultimate AI-powered gaming discovery engine.
+
+Think:
+
+* Google for Games
+* Steam Discovery
+* Xbox Game Pass
+* IGN
+* Metacritic
+* AI Assistant
+
+combined into one platform.
+
+The final product should feel like a venture-funded startup worth millions of dollars.
+
+---
+
+# CORE PRODUCT VISION
+
+Users should never need to leave GamerVerse to research a game.
+
+Everything should be available in one place:
+
+* Search
+* Discovery
+* Comparison
+* Reviews
+* Ratings
+* Similar Games
+* System Requirements
+* AI Recommendations
+* Gaming News
+* Community Discussions
+
+---
+
+# CRITICAL REQUIREMENT
+
+DO NOT require manually uploading thousands of games.
+
+Instead create an architecture that automatically retrieves game information using external game databases.
+
+Possible integrations:
+
+* RAWG API
+* IGDB
+* Steam data sources where possible
+
+Use caching strategies for performance.
+
+The platform must be scalable.
+
+---
+
+# AI SEARCH ENGINE
+
+Users should be able to search naturally.
+
+Examples:
+
+"Best action games"
+
+"Games like GTA V"
+
+"Games like Minecraft"
+
+"Best games for 4 GB RAM"
+
+"Games under 20 GB"
+
+"Best story games"
+
+"Best multiplayer games"
+
+"Open world games"
+
+"Best horror games"
+
+"Games for low-end PCs"
+
+The search system should understand intent.
+
+---
+
+# GAME DETAIL EXPERIENCE
+
+Every game page should contain:
+
+* Hero Banner
+* Cover Image
+* Trailer
+* Screenshots
+* Description
+* Genres
+* Platforms
+* Developers
+* Publishers
+* Release Date
+* Ratings
+* Community Score
+* Tags
+* Similar Games
+* Recommended Games
+* System Requirements
+* Performance Insights
+
+---
+
+# PC COMPATIBILITY ENGINE
+
+Users can enter:
+
+* CPU
+* GPU
+* RAM
+
+or select their system profile.
+
+The platform should estimate:
+
+* Can I run this game?
+* Recommended settings
+* Hardware compatibility
+* Performance expectations
+
+Display:
+
+* Minimum requirements
+* Recommended requirements
+* Compatibility indicators
+
+---
+
+# COMPARE GAMES
+
+Users should compare multiple games.
+
+Metrics:
+
+* Graphics
+* Story
+* Open World
+* Multiplayer
+* Optimization
+* Difficulty
+* Replayability
+* Hardware Demand
+* Community Rating
+
+Use charts and beautiful visual comparisons.
+
+---
+
+# AI RECOMMENDATION ENGINE
+
+Generate recommendations based on:
+
+* Search history
+* Favorite games
+* Viewed games
+* Reviews
+* Genres
+* Platforms
+* Hardware capability
+
+Each recommendation must explain:
+
+WHY the game was selected.
+
+Example:
+
+"Recommended because you enjoy open-world action games similar to GTA V."
+
+---
+
+# USER FEATURES
+
+Authentication:
+
+* Firebase Authentication
+* Google Login
+* Email Login
+* Forgot Password
+* Persistent Sessions
+
+Profiles:
+
+* Username
+* Avatar
+* Favorite Games
+* Recently Viewed Games
+* Saved Comparisons
+* Recommendation History
+
+Favorites:
+
+* Save Games
+* Remove Favorites
+* Favorites Dashboard
+
+Reviews:
+
+* Write Reviews
+* Ratings
+* Helpful Votes
+
+Community:
+
+* Discussions
+* Comments
+* Activity Feed
+
+News:
+
+* Latest Gaming News
+* Featured Articles
+* Trending Articles
+
+---
+
+# ADMIN DASHBOARD
+
+Admin Features:
+
+* Manage Games
+* Moderate Reviews
+* Moderate Community
+* Manage News
+* Analytics Dashboard
+* Audit Logs
+* User Management
+
+Role System:
+
+* User
+* Moderator
+* Editor
+* Admin
+* Owner
+
+---
+
+# TECH STACK
+
+Frontend:
+
+* React
+* TypeScript
+* Vite
+* Tailwind CSS
+* Framer Motion
+* React Router
+
+Backend:
+
+* Firebase Authentication
+* Firestore
+* Firebase Storage
+
+Architecture:
+
+* Feature-Based Architecture
+* Reusable Components
+* Service Layer
+* Repository Pattern
+* Clean Architecture Principles
+
+---
+
+# UI / UX REQUIREMENTS
+
+The current generation of gaming websites feels outdated.
+
+Create something that feels futuristic.
+
+Inspiration:
+
+* Steam
+* Xbox Game Pass
+* PlayStation Store
+* Apple Vision Pro
+* Linear
+* Stripe
+* Framer
+* Awwwards-winning websites
+
+Visual Style:
+
+* Deep Black Backgrounds
+* Neon Blue Lighting
+* Purple Glow Effects
+* Glassmorphism
+* Premium Gradients
+* Cinematic Atmosphere
+* Layered Depth
+* Premium Typography
+
+---
+
+# HOMEPAGE
+
+The homepage must create a WOW effect.
+
+Include:
+
+* Massive Cinematic Hero
+* AI Search Experience
+* Trending Games
+* New Releases
+* Popular Genres
+* Hardware-Based Recommendations
+* Featured Collections
+* Gaming News
+* Community Highlights
+* Premium Footer
+
+No empty sections.
+
+No placeholders.
+
+No generic layouts.
+
+---
+
+# ANIMATION REQUIREMENTS
+
+Use Framer Motion extensively.
+
+Required:
+
+* Page Transitions
+* Scroll Animations
+* Mouse Tracking Effects
+* Floating Particles
+* Parallax Effects
+* Animated Cards
+* Dynamic Hover Effects
+* Skeleton Loaders
+* Premium Loading Screens
+* Animated Search Results
+* Smooth Modal Animations
+
+The site should feel alive.
+
+Target 60 FPS.
+
+---
+
+# PERFORMANCE REQUIREMENTS
+
+* Mobile First
+* Responsive
+* Lighthouse Score 90+
+* Lazy Loading
+* Code Splitting
+* Optimized Images
+* Accessibility Support
+* SEO Optimization
+
+---
+
+# DEVELOPMENT PROCESS
+
+PHASE 1:
+Architecture and Planning
+
+PHASE 2:
+Project Setup
+
+PHASE 3:
+Design System
+
+PHASE 4:
+Homepage
+
+PHASE 5:
+Authentication
+
+PHASE 6:
+Discovery Engine
+
+PHASE 7:
+Game Details
+
+PHASE 8:
+Comparison System
+
+PHASE 9:
+Recommendations
+
+PHASE 10:
+Community and News
+
+PHASE 11:
+Admin Dashboard
+
+PHASE 12:
+Production Hardening
+
+---
+
+IMPORTANT:
+
+Do not create a basic template.
+
+Do not generate placeholder sections.
+
+Do not generate empty layouts.
+
+Every page should feel production-ready.
+
+Think like a startup founder building the future of gaming discovery.
+
+Start with architecture and implementation immediately and continue until a working MVP is produced.
