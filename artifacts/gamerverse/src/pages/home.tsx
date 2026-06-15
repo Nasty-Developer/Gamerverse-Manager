@@ -148,25 +148,29 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { icon: SearchIcon, color: "text-primary bg-primary/20 border-primary/30", title: "Game Discovery", desc: "Natural language search — 'best open world RPGs', 'games like GTA V', 'best horror games'.", href: "/search" },
-            { icon: Scale, color: "text-accent bg-accent/20 border-accent/30", title: "Compare Games", desc: "Compare ratings, metacritic scores, genres, platforms, and requirements side by side.", href: "/discover" },
-            { icon: Cpu, color: "text-green-400 bg-green-500/20 border-green-500/30", title: "System Requirements", desc: "Enter your CPU, GPU, and RAM to see if you can run any game before downloading.", href: "/pc-check" },
-            { icon: Bookmark, color: "text-yellow-400 bg-yellow-500/20 border-yellow-500/30", title: "Wishlist", desc: "Save games you want to play and build your personal gaming backlog.", href: "/wishlist" },
-            { icon: Gamepad, color: "text-orange-400 bg-orange-500/20 border-orange-500/30", title: "Request a Game", desc: "Can't find a game? Submit a request and we'll add it to the platform.", href: "/request-game" },
-            { icon: Wrench, color: "text-pink-400 bg-pink-500/20 border-pink-500/30", title: "Request Mod Links", desc: "Request mods for your favorite games. Vote on requests and track their status.", href: "/request-mod" },
-          ].map(({ icon: Icon, color, title, desc, href }) => (
+            { icon: SearchIcon, color: "text-primary bg-primary/20 border-primary/30", title: "Game Discovery", desc: "Natural language search — 'best open world RPGs', 'games like GTA V', 'best horror games'.", href: "/search", cta: "Search Games" },
+            { icon: Scale, color: "text-accent bg-accent/20 border-accent/30", title: "Compare Games", desc: "Compare ratings, metacritic scores, genres, platforms, and requirements side by side.", href: "/compare", cta: "Compare Now" },
+            { icon: Cpu, color: "text-green-400 bg-green-500/20 border-green-500/30", title: "System Requirements", desc: "Enter your CPU, GPU, and RAM to see if you can run any game before downloading.", href: "/pc-check", cta: "Check My PC" },
+            { icon: Bookmark, color: "text-yellow-400 bg-yellow-500/20 border-yellow-500/30", title: "Wishlist", desc: "Save games you want to play and build your personal gaming backlog.", href: "/wishlist", cta: "View Wishlist" },
+            { icon: Gamepad, color: "text-orange-400 bg-orange-500/20 border-orange-500/30", title: "Request a Game", desc: "Can't find a game? Submit a request and we'll add it to the platform.", href: "/request-game", cta: "Submit Request" },
+            { icon: Wrench, color: "text-pink-400 bg-pink-500/20 border-pink-500/30", title: "Request Mod Links", desc: "Request mods for your favorite games. Vote on requests and track their status.", href: "/request-mod", cta: "Request a Mod" },
+          ].map(({ icon: Icon, color, title, desc, href, cta }) => (
             <motion.button
               key={title}
-              whileHover={{ scale: 1.02, y: -2 }}
+              whileHover={{ scale: 1.02, y: -3 }}
               transition={{ duration: 0.2 }}
               onClick={() => setLocation(href)}
-              className="group bg-card border border-white/10 rounded-2xl p-6 text-left hover:border-white/20 transition-all"
+              className="group bg-card border border-white/10 rounded-2xl p-6 text-left hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all flex flex-col"
             >
               <div className={`inline-flex p-3 rounded-xl border mb-4 ${color}`}>
                 <Icon className="w-5 h-5" />
               </div>
               <h3 className="text-white font-bold mb-2 group-hover:text-primary transition-colors">{title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{desc}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed flex-1">{desc}</p>
+              <div className="mt-5 pt-4 border-t border-white/8 flex items-center justify-between">
+                <span className="text-primary text-sm font-semibold">{cta}</span>
+                <ArrowRight className="w-4 h-4 text-primary group-hover:translate-x-1 transition-transform" />
+              </div>
             </motion.button>
           ))}
         </div>

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Gamepad2, Search, Compass, Cpu, User, Menu, Bookmark, LayoutGrid, Gamepad, Wrench, Map, Home, X } from "lucide-react";
+import { Gamepad2, Search, Compass, Cpu, User, Menu, Bookmark, LayoutGrid, Gamepad, Wrench, Map, Home, X, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/discover", icon: Compass, label: "Discover" },
   { href: "/search", icon: Search, label: "Search" },
   { href: "/collections", icon: LayoutGrid, label: "Collections" },
+  { href: "/compare", icon: Scale, label: "Compare" },
   { href: "/pc-check", icon: Cpu, label: "Can I Run It?" },
 ];
 

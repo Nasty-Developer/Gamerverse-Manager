@@ -1,2 +1,2 @@
-- [GameSummary type rule](gamesummary-type.md) — always import GameSummary from @workspace/api-client-react, never redefine locally or use @workspace/api-zod paths
-- [React Query patterns](react-query-patterns.md) — queryKey is required in query options; getList*QueryKey() helpers exist for all list hooks
+- [React Query queryKey requirement](react-query-querykey.md) — every useXxx hook option object requires an explicit `queryKey` field from the matching `getXxxQueryKey()` helper.
+- [GameDetail vs GameSummary](game-types.md) — `short_screenshots` only exists on `GameSummary`; `GameDetail` does not have it.

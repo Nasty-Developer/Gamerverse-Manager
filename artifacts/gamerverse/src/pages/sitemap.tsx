@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Home, Compass, Search, Cpu, User, Bookmark, LayoutGrid, Gamepad2, Wrench, Map, ArrowRight } from "lucide-react";
+import { Home, Compass, Search, Cpu, User, Bookmark, LayoutGrid, Gamepad2, Wrench, Map, ArrowRight, Scale } from "lucide-react";
 
 const ROUTES = [
   {
@@ -21,6 +21,7 @@ const ROUTES = [
     textColor: "text-accent",
     links: [
       { href: "/pc-check", icon: Cpu, label: "Can I Run It?", description: "Check PC hardware compatibility for any game" },
+      { href: "/compare", icon: Scale, label: "Compare Games", description: "Compare up to 4 games side by side — ratings, metacritic, platforms" },
       { href: "/collections", icon: LayoutGrid, label: "Collections", description: "Curated game lists — best RPGs, horror, open world, and more" },
     ]
   },

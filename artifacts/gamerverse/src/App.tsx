@@ -17,6 +17,7 @@ import Wishlist from "@/pages/wishlist";
 import RequestGame from "@/pages/request-game";
 import RequestMod from "@/pages/request-mod";
 import Sitemap from "@/pages/sitemap";
+import Compare from "@/pages/compare";
 import { Layout } from "@/components/layout";
 
 const queryClient = new QueryClient();
@@ -98,6 +99,7 @@ function Router() {
         <Route path="/wishlist" component={Wishlist} />
         <Route path="/request-game" component={RequestGame} />
         <Route path="/request-mod" component={RequestMod} />
+        <Route path="/compare" component={Compare} />
         <Route path="/sitemap" component={Sitemap} />
         <Route path="/sign-in/*?" component={SignInPage} />
         <Route path="/sign-up/*?" component={SignUpPage} />
