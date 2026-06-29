@@ -249,14 +249,22 @@ paths:
           required: true
           schema:
             type: string
+
+        - name: genres
+          in: query
+          schema:
+            type: string
+
         - name: page
           in: query
           schema:
             type: integer
+
         - name: page_size
           in: query
           schema:
             type: integer
+
       responses:
         "200":
           description: Search results

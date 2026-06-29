@@ -5,19 +5,30 @@ import { rawgFetch } from "./games/rawg";
 const router = Router();
 
 // Parses natural language queries into RAWG parameters
-function parseSearchIntent(q: string): { params: Record<string, string | number>; intent: string } {
+function parseSearchIntent(q: string): {
+  params: Record<string, string | number>;
+  intent: string;
+} {
   const lower = q.toLowerCase();
   const params: Record<string, string | number> = {};
   let intent = "search";
 
   // Ordering intents
-  if (lower.includes("best") || lower.includes("top rated") || lower.includes("top-rated")) {
+  if (
+    lower.includes("best") ||
+    lower.includes("top rated") ||
+    lower.includes("top-rated")
+  ) {
     params.ordering = "-metacritic";
     intent = "top-rated";
   } else if (lower.includes("trending") || lower.includes("popular")) {
     params.ordering = "-added";
     intent = "trending";
-  } else if (lower.includes("new") || lower.includes("latest") || lower.includes("recent")) {
+  } else if (
+    lower.includes("new") ||
+    lower.includes("latest") ||
+    lower.includes("recent")
+  ) {
     params.ordering = "-released";
     intent = "new-releases";
   }
@@ -42,7 +53,7 @@ function parseSearchIntent(q: string): { params: Record<string, string | number>
     "open world": "open-world",
     "open-world": "open-world",
     multiplayer: "massively-multiplayer",
-    "story": "adventure",
+    story: "adventure",
   };
   for (const [keyword, genre] of Object.entries(genreMap)) {
     if (lower.includes(keyword)) {
@@ -57,12 +68,12 @@ function parseSearchIntent(q: string): { params: Record<string, string | number>
     "low end pc": "low-spec",
     "4 gb ram": "low-spec",
     "co-op": "co-op",
-    "coop": "co-op",
+    coop: "co-op",
     "story rich": "story-rich",
     "open world": "open-world",
     sandbox: "sandbox",
     survival: "survival",
-    "horror": "horror",
+    horror: "horror",
     multiplayer: "multiplayer",
   };
   for (const [keyword, tag] of Object.entries(tagMap)) {
@@ -102,16 +113,28 @@ function parseSearchIntent(q: string): { params: Record<string, string | number>
 router.get("/", async (req: Request, res: Response) => {
   try {
     const q = (req.query.q as string) || "";
+    const genres = (req.query.genres as string) || "";
+
     const page = req.query.page ? Number(req.query.page) : 1;
     const page_size = req.query.page_size ? Number(req.query.page_size) : 20;
 
     const { params, intent } = parseSearchIntent(q);
 
-    const data = await rawgFetch("/games", {
+    if (genres) {
+      params.genres = genres;
+      console.log("GENRE RECEIVED:", genres);
+      console.log("RAWG PARAMS:", params);
+    }
+    console.log("SEARCH PARAMS:", {
       ...params,
       page,
       page_size,
-    }) as { count: number; results: unknown[] };
+    });
+    const data = (await rawgFetch("/games", {
+      ...params,
+      page,
+      page_size,
+    })) as { count: number; results: unknown[] };
 
     res.json({
       query: q,
